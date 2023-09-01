@@ -4,7 +4,7 @@ input = sys.stdin.readline
 N = int(input())
 
 for i in range(N):
-    gwalho = input()
+    gwalho = input().rstrip()
 
     res = []
     for check in gwalho:
@@ -12,10 +12,11 @@ for i in range(N):
             res.append(check)
         else:
             if res:
-                res.pop()
+                if res[-1] == '(':
+                    res.pop()
+            else:
+                res.append(check)
 
-
-    print(res)
     if res:
         print('NO')
     else:
