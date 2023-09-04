@@ -45,6 +45,8 @@ while True:
         if map_v[nx][ny] == 0:
             snake.popleft()
 
+        elif map_v[nx][ny] == 1:
+            map_v[nx][ny] = 0
         sx = nx
         sy = ny
         cnt += 1
