@@ -18,8 +18,6 @@ for i in range(N):
                 temp[j] = '.'
                 break
 
-keys = {'A': '', 'B': '', 'C': '', 'D': '', 'E': '', 'F': ''}
-
 visit = [[[False] * (1 << 6) for _ in range(M)] for _ in range(N)]
 
 dx = [-1, 1, 0, 0]
