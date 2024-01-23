@@ -1,11 +1,6 @@
 
-a = [1,2,3,4]
-b = set()
+a = '1'
 
-for i in range(len(a)):
-    b.add(a[i])
+a += '1'
 
-print(b)
-
-if 5 in b:
-    print(1)
+print(a)
