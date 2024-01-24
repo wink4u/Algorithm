@@ -1,6 +1,9 @@
 import sys
-
+from collections import defaultdict
 input = sys.stdin.readline
+
+
+stack = []
 
 while True:
     n = int(input())
@@ -8,27 +11,33 @@ while True:
     if n == 0:
         break
 
-    if n <= 9:
-        print(n)
-        continue
+    if n <= len(stack):
+        print(stack[n - 1])
+    else:
+        if stack:
+            num = stack[-1] + 1
+        else:
+            num = 1
 
-    num = 1
-    count = 9
+        while True:
+            dic = defaultdict(int)
+            flag = 1
+            temp = str(num)
 
-    nums = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-
-    while True:
-        str_num = str(num)
-        flag = 0
-        for i in range(10):
-            if nums[i] not in str_num:
-                count += 1
-                if count == n:
-                    print(str_num + nums[i])
-                    flag = 1
+            for i in temp:
+                if dic.get(i):
+                    flag = 0
                     break
+                else:
+                    dic[i] += 1
 
-        if flag:
-            break
 
-        num += 1
+            if flag:
+                stack.append(num)
+
+
+            if len(stack) == n:
+                print(num)
+                break
+
+            num += 1

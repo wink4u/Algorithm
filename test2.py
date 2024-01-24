@@ -1,6 +1,7 @@
+from collections import defaultdict
 
-a = '1'
+dic = defaultdict(int)
 
-a += '1'
+dic['3'] = 3
 
-print(a)
+print(dic.get('2'))
