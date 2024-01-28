@@ -1,66 +1,115 @@
 import sys
 input = sys.stdin.readline
-from collections import deque
 
-keybords = [['q','w','e','r','t','y','u','i','o','p'],['a','s','d','f','g','h','j','k','l','.'],['z','x','c','v','b','n','m','.','.','.']]
+N = int(input())
 
-T = int(input())
+new_boards = [list(map(int, input().split())) for _ in range(N)]
 
 dx = [-1, 1, 0, 0]
 dy = [0, 0, -1, 1]
 
+# d가 0 이면 아래로 1이면 위로 2면 오른쪽 3면 왼쪽
 
-def bfs(sx, sy, obj):
-    q = deque()
-    q.append((sx, sy))
-    visit = [[-1 for _ in range(10)] for _ in range(3)]
-    visit[sx][sy] = 0
+result = 0
 
-    while q:
-        x, y = q.popleft()
+def check(boards, cnt, value):
+    global result
+    if cnt == 5:
+        for i in range(len(boards)):
+            result = max(result, max(boards[i]))
+        return
 
-        for d in range(4):
-            nx = x + dx[d]
-            ny = y + dy[d]
+    if value < result:
+        return
 
-            if 0 <= nx < 3 and 0 <= ny < 10 and keybords[nx][ny] != '.':
-                if visit[nx][ny] == -1:
-                    visit[nx][ny] = visit[x][y] + 1
+    for d in range(4):
+        if d == 0:
+            for j in range(N):
+                cursor = N - 1
+                for i in range(N - 1, -1, -1):
+                    if boards[i][j] != 0:
+                        tmp = boards[i][j]
+                        boards[i][j] = 0
 
-                    if keybords[nx][ny] == obj:
-                        return visit[nx][ny]
+                        if boards[cursor][j] == 0:
+                            boards[cursor][j] = tmp
 
-                    q.append((nx, ny))
+                        elif boards[cursor][j] == tmp:
+                            boards[cursor][j] *= 2
+                            cursor -= 1
+
+                        else:
+                            cursor -= 1
+                            boards[cursor][j] = tmp
+
+                    # value = max(value, boards[j][cursor])
+
+        elif d == 1:
+            for j in range(N):
+                cursor = 0
+                for i in range(N):
+                    if boards[i][j] != 0:
+                        tmp = boards[i][j]
+                        boards[i][j] = 0
+
+                        if boards[cursor][j] == 0:
+                            boards[cursor][j] = tmp
+
+                        elif boards[cursor][j] == tmp:
+                            boards[cursor][j] *= 2
+                            cursor += 1
+
+                        else:
+                            cursor += 1
+                            boards[cursor][j] = tmp
+                    # value = max(value, boards[j][cursor])
+        elif d == 2:
+            for i in range(N):
+                cursor = N - 1
+                for j in range(N - 1, -1, -1):
+
+                    if boards[i][j] != 0:
+                        tmp = boards[i][j]
+                        boards[i][j] = 0
+
+                        if boards[i][cursor] == 0:
+                            boards[i][cursor] = tmp
+
+                        elif boards[i][cursor] == tmp:
+                            boards[i][cursor] *= 2
+                            cursor -= 1
+                        else:
+                            cursor -= 1
+                            boards[i][cursor] = tmp
+
+                    # value = max(value, boards[j][cursor])
+
+        else:
+            for i in range(N):
+                cursor = 0
+                for j in range(1, N):
+                    if boards[i][j] != 0:
+                        temp = boards[i][j]
+                        boards[i][j] = 0
+
+                        if boards[i][cursor] == 0:
+                            boards[i][cursor] = temp
+                        elif boards[i][cursor] == temp:
+                            boards[i][cursor] *= 2
+                            cursor += 1
+                        else:
+                            cursor += 1
+                            boards[i][cursor] = temp
+
+                    # value = max(value, boards[j][cursor])
+
+        # print(d)
+        #
+        # for i in range(len(boards)):
+        #     print(boards[i])
+        # print('----------------------------------')
+        check(boards, cnt + 1, value)
 
 
-    return 0
-
-for _ in range(T):
-    words, m = input().split()
-
-    base = []
-    for word in words:
-        for i in range(3):
-            if word in keybords[i]:
-                _index = keybords[i].index(word)
-                base.append((i, _index))
-
-    result = []
-    for _ in range(int(m)):
-        new_words = input().strip()
-        cnt = 0
-
-        for i in range(len(new_words)):
-            if new_words[i] == words[i]:
-                continue
-
-            cnt += bfs(base[i][0], base[i][1], new_words[i])
-
-        result.append([new_words, cnt])
-
-    result.sort(key = lambda x : (x[1], x[0]))
-
-    for i in range(int(m)):
-        print(*result[i])
-
-
+check(new_boards, 0, 0)
+print(result)

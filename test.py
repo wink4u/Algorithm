@@ -1,48 +1,34 @@
-from itertools import permutations
+import sys
+input = sys.stdin.readline
 
-max_v = 0
-def check(a, b, cals):
-    if cals == '+':
-        return str(int(a) + int(b))
-    elif cals == '-':
-        return str(int(a) - int(b))
-    elif cals == '*':
-        return str(int(a) * int(b))
+N = int(input())
 
-def calu(expression, calcul):
-    global max_v
-    arr = []
-    number = ''
+fruits = list(map(int, input().split()))
+nums = [0 for _ in range(10)]
 
-    for i in expression:
-        if i.isdigit():
-            number += i
-        else:
-            arr.append(number)
-            arr.append(i)
-            number = ''
+L, R = 0, 0
+_max = 0
+cnt = 0
+kind = 0
+while True:
+    if R >= N:
+        break
 
-    arr.append(number)
+    if nums[fruits[R]] == 0:
+        kind += 1
 
-    for o in calcul:
-        stack = []
-        while len(arr) != 0:
-            tmp = arr.pop(0)
-            if tmp == o:
-                stack.append(check(stack.pop(), arr.pop(0), o))
-            else:
-                stack.append(tmp)
+    cnt += 1
+    nums[fruits[R]] += 1
 
-            print(stack)
-        arr = stack
+    if kind > 2:
+        if nums[fruits[L]] == 1:
+            kind -= 1
 
-    max_v = max(max_v, abs(int(arr[0])))
+        nums[fruits[L]] -= 1
+        cnt -= 1
+        L += 1
 
-def solution(expression):
-    cal = ['-', '+', '*']
-    cal = list(permutations(cal, 3))
+    _max = max(_max, cnt)
+    R += 1
 
-    for i in cal:
-        calu(expression, i)
-    print(max_v)
-
+print(_max)
