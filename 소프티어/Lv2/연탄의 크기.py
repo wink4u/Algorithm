@@ -8,8 +8,8 @@ houses = list(map(int, input().split()))
 # 소수 판별
 def primenumber(x):
     for i in range(2, int(math.sqrt(x) + 1)):
-    	if x % i == 0:
-        	return False
+        if x % i == 0:
+            return False
     return True
 
 _max = 0
