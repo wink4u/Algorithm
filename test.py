@@ -1,34 +1,28 @@
 import sys
 input = sys.stdin.readline
 
-N = int(input())
+N, K = map(int, input().split())
+temp = list(map(int, input().split()))
 
-fruits = list(map(int, input().split()))
-nums = [0 for _ in range(10)]
+if K > N:
+    K = N
 
-L, R = 0, 0
-_max = 0
-cnt = 0
-kind = 0
-while True:
-    if R >= N:
-        break
+chips = []
 
-    if nums[fruits[R]] == 0:
-        kind += 1
+for i in range(N):
+    chips.append([i, temp[i]])
 
-    cnt += 1
-    nums[fruits[R]] += 1
+res = [0] * N
+sorted_chips = sorted(chips, key = lambda x : (-x[1], x[0]))
+connect = []
 
-    if kind > 2:
-        if nums[fruits[L]] == 1:
-            kind -= 1
+for k in range(K):
+    # if k < N:  # 전원선 수가 부품 수보다 클 수 있으므로 확인
+    connect.append(sorted_chips[k][0] + 1)
+    res[sorted_chips[k][0]] = sorted_chips[k][0] + 1
 
-        nums[fruits[L]] -= 1
-        cnt -= 1
-        L += 1
+for i in range(len(connect)):
+    print(connect[i])
 
-    _max = max(_max, cnt)
-    R += 1
-
-print(_max)
+for i in range(N):
+    print(res[i])
