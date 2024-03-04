@@ -1,12 +1,24 @@
 import sys
 input = sys.stdin.readline
 
-n = int(input())
-cards = [0] + list(map(int, input().split()))
-dp = [0 for _ in range(n + 1)]
+m, n = map(int, input().split())
+cookies = list(map(int, input().split()))
 
-for i in range(1, n + 1):
-    for j in range(1, i + 1):
-        dp[i] = max(dp[i], cards[j] + dp[i - j])
+start, end = 1, int(1e9)
 
-print(dp[n])
+res = 0
+
+while start <= end:
+    mid = (start + end) // 2
+
+    make = 0
+    for cookie in cookies:
+        make += cookie // mid
+
+    if make >= m:
+        res = max(res, mid)
+        start = mid + 1
+    else:
+        end = mid - 1
+
+print(res)
