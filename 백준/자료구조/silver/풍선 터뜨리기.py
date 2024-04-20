@@ -5,7 +5,7 @@ input = sys.stdin.readline
 n = int(input())
 q = deque(enumerate(map(int, input().split())))
 ans = []
-
+print(q)
 while q:
     idx, paper = q.popleft()
     ans.append(idx + 1)
