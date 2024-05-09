@@ -1,7 +1,7 @@
 import sys
 input = sys.stdin.readline
 
-N, K = map(int, input().split())
+N, M = map(int, input().split())
 
 num = list(map(int, input().split()))
 arr = [0, num[0]]
@@ -9,9 +9,18 @@ for i in range(1, N):
     total = arr[i] + num[i]
     arr.append(total)
 
-res = -100 * K
+ans = 0
+for i in range(1, len(arr)):
+    # print(arr[i], ans)
+    tmp = ans
+    if arr[i] % M == 0:
+        ans += 1
+        ans += tmp
+# for i in range(1, len(arr)):
+#     present = arr[i]
+#     for j in range(i - 1, -1, -1):
+#         now = present - arr[j]
+#         if now % M == 0:
+#             ans += 1
 
-for i in range(K, len(arr)):
-    res = max(res, arr[i] - arr[i - K])
-
-print(res)
+print(ans)
