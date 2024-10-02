@@ -7,8 +7,6 @@ input = sys.stdin.readline
 
 n, m, d = map(int, input().split())
 
-delete = []
-
 board = [list(map(int, input().split())) for _ in range(n)]
 
 dx = [-1, 1, 0, 0]
@@ -20,10 +18,13 @@ def attack_bfs(sx, sy, stage, end):
     q.append((sx, sy))
     visit = [[0] * m for _ in range(len(stage))]
 
+    # 적이 담길 배열 초기화
     attack = []
+    # 거리값 확인 변수
     cnt = 0
 
     while q:
+        # 거리를 판단하기 위한 for문
         for _ in range(len(q)):
             s_x, s_y = q.popleft()
 
@@ -38,14 +39,18 @@ def attack_bfs(sx, sy, stage, end):
                         q.append((nx, ny))
                     visit[nx][ny] = 1
 
+        # 적이 담겨있다면 while문 종료
         if attack:
             break
 
+        # 거리 하나 플러스
         cnt += 1
 
+        # 거리 값이 사정거리값이랑 같아지면 while문 종료
         if cnt == end:
             break
 
+    # 적이있다면 왼쪽 적 처치
     if attack:
         attack.sort(key = lambda x : x[1])
         return attack[0]
@@ -75,7 +80,6 @@ for i in range(len(combi)):
 
             if rx != -1 and ry != -1:
                 check.add((rx, ry))
-
 
         check = list(check)
 
