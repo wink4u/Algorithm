@@ -1,4 +1,4 @@
-https://www.acmimport sys
+import sys
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
@@ -70,4 +70,4 @@ for i in range(n):
                 board[i][j] = '.'
 
 for i in range(n):
-    print(''.join(board[i]))icpc.net/problem/8972
+    print(''.join(board[i]))
