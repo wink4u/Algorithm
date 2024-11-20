@@ -20,9 +20,6 @@ minus.sort(reverse = True)
 plus.sort()
 res = 0
 
-flag1, flag2 = 0, 0
-prev= 0
-
 while len(plus) > 1:
     a, b = plus.pop(), plus.pop()
     res += a * b if a > 1 and b > 1 else a + b
