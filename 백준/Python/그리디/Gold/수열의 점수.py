@@ -4,7 +4,7 @@ input = sys.stdin.readline
 n = int(input())
 plus = []
 minus = []
-zero = []
+zero = False
 
 for i in range(n):
     num = int(input())
@@ -14,7 +14,7 @@ for i in range(n):
     elif num > 0:
         plus.append(num)
     else:
-        zero.append(num)
+        zero = True
 
 minus.sort(reverse = True)
 plus.sort()
@@ -23,37 +23,18 @@ res = 0
 flag1, flag2 = 0, 0
 prev= 0
 
-while plus:
-    if not flag1:
-        prev = plus.pop()
-        flag1 = 1
-    elif flag1 == 1:
-        tmp = plus.pop()
-        if tmp == 1:
-            res += prev
-            res += tmp
-            flag1 = 2
-        else:
-            res += prev * tmp
-            flag1 = 0
-    else:
-        res += plus.pop()
+while len(plus) > 1:
+    a, b = plus.pop(), plus.pop()
+    res += a * b if a > 1 and b > 1 else a + b
 
-if flag1 == 1:
-    res += prev
+if plus:
+    res += plus[0]
 
-while minus:
-    if not flag2:
-        prev = minus.pop()
-        flag2 = 1
-    else:
-        res += prev * minus.pop()
-        flag2 = 0
+while len(minus) > 1:
+    res += minus.pop() * minus.pop()
 
-if flag2:
-    if zero:
-        print(res)
-    else:
-        print(res + prev)
-else:
-    print(res)
+if minus:
+    if not zero:
+        res += minus[0]
+
+print(res)
