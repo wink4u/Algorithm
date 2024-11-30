@@ -2,8 +2,6 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-# dx = [-3, -3, 3, 3, -2, -2, 2, 2]
-# dy = [-2, 2, -2, 2, 3, -3, 3, -3]
 dx, dy = [-3, -3, -2, -2, 2, 2, 3, 3], [-2, 2, -3, 3, -3, 3, -2, 2]
 sx, sy = map(int, input().split())
 ex, ey = map(int, input().split())
