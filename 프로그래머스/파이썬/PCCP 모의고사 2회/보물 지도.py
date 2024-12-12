@@ -27,8 +27,10 @@ def solution(n, m, hole):
                 if 0 <= nx < n and 0 <= ny < m and not visit[nx][ny][ismove] and board[nx][ny] == 0:
                     if (nx, ny) == (n - 1, m - 1):
                         return answer + 1
+
                     visit[nx][ny][ismove] = True
                     q.append((nx, ny, ismove))
+
                 if not ismove:
                     nx += dx[d]
                     ny += dy[d]
