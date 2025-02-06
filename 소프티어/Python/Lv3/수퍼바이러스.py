@@ -16,3 +16,4 @@ def check(x, y):
 
 ans = check(P, N) * K
 print(ans % 1000000007)
+
