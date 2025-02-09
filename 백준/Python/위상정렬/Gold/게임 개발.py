@@ -2,6 +2,9 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
+# 위상정렬은 순서가 정해져 있는 일련의 작업을 차례대로 수행해야 할 때
+# 이것은 위상정렬과 dp를 섞은 문제
+
 n = int(input())
 node = [[] for _ in range(n + 1)]
 # 선입간선 개수
