@@ -1,28 +1,27 @@
 import sys
 input = sys.stdin.readline
 
-N, K = map(int, input().split())
-temp = list(map(int, input().split()))
+# 자기 공보다 크기가 작고 색이 다른 공을 잡는다
 
-if K > N:
-    K = N
+n = int(input())
+# 색깔에 대한 총핪 배열
+arr = [0] * (n + 1)
+# 누적합을 하기 위한 배열
+w = [0] * 2002
+tmp = []
 
-chips = []
+for i in range(n):
+    color, weight = map(int, input().split())
+    arr[color] += weight
+    w[weight] += weight
+    tmp.append([color, weight])
 
-for i in range(N):
-    chips.append([i, temp[i]])
+for i in range(1, 2002):
+    w[i] += w[i - 1]
 
-res = [0] * N
-sorted_chips = sorted(chips, key = lambda x : (-x[1], x[0]))
-connect = []
-
-for k in range(K):
-    # if k < N:  # 전원선 수가 부품 수보다 클 수 있으므로 확인
-    connect.append(sorted_chips[k][0] + 1)
-    res[sorted_chips[k][0]] = sorted_chips[k][0] + 1
-
-for i in range(len(connect)):
-    print(connect[i])
-
-for i in range(N):
-    print(res[i])
+for i in range(n):
+    c, v = tmp[i]
+    print(w[v - 1], arr[c])
+    ans = w[v - 1] - arr[c] + v
+    print(ans)
+    # print(0 if ans < 0 else ans)
