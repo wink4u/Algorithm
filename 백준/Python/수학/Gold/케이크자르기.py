@@ -3,7 +3,7 @@ input = sys.stdin.readline
 
 n = int(input())
 
-if n == 0:
+if n == 1:
     print(0)
 elif n % 2:
     print((n // 2) + 1)
