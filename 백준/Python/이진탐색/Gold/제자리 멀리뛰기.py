@@ -13,7 +13,7 @@ def check(num):
     dist = d
     now = 0
     for a in arr:
-        if a - now >= mid:
+        if a - now >= num:
             dist = min(dist, a - now)
             now = a
         else:
